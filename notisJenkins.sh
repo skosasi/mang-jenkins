@@ -2,15 +2,16 @@
 
 ## example command
 # ./notisJenkins.sh tnt-haioo haioo-backoffice release true 80 40 rubenson initialcommit http://
-appname=$1 #PRODUCT_NAME
-servicename=$2 #DOCKER_IMAGE_NAME
-branch=$3 #BRANCH_NAME
-status=$4 # true or false
-buildnumber=$5 #BUILD_NUMBER
-coverage=$6 # number percentage
-commitauthor=$7
-commitmessage=$8
-buildurl=$9 #BUILD_URL
+endpoint=$1 #endpoint hooks
+appname=$2 #PRODUCT_NAME
+servicename=$3 #DOCKER_IMAGE_NAME
+branch=$4 #BRANCH_NAME
+status=$5 # true or false
+buildnumber=$6 #BUILD_NUMBER
+coverage=$7 # number percentage
+commitauthor=$8
+commitmessage=$9
+buildurl=$10 #BUILD_URL
 
 #variable date
 currDate=$(date '+%Y-%m-%d')
@@ -41,7 +42,7 @@ declare -A listEnv
     listEnv['master']='Production'
 
 # call api hooks
-NOTICE=$(curl --location --request POST 'https://telkomind.webhook.office.com/webhookb2/1c5c8ec4-e34e-4359-baac-a3bb914878ef@9f19a4b6-b3e6-4fc4-96d0-402ab7d2872b/IncomingWebhook/c402d84ea2a74452ab4f1baff888b079/013c9ecf-8889-4790-aa4a-8ad3111752b9' \
+NOTICE=$(curl --location --request POST ${endpoint} \
     --header 'Content-Type: application/json' \
     --data-raw '{
     "@context": "https://schema.org/extensions",
