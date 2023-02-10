@@ -36,8 +36,10 @@ image="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAAD/CAMAAACdMFkKAAABlVB
 
 #condition for statusString
 statusstring="❌ Failure"
+themeColor="FF0000"
 if [ $status == "true" ]; then
   statusstring="✅ Success"
+  themeColor="0072C6"
 fi
 
 ##color coverage
@@ -64,7 +66,7 @@ payload=$(cat <<-END
 {
     "@context": "https://schema.org/extensions",
     "@type": "MessageCard",
-    "themeColor": "0072C6",
+    "themeColor": "${themeColor}",
     "text": "****",
     "activityImage": "${image}",
     "sections": [
@@ -72,6 +74,7 @@ payload=$(cat <<-END
             "id":"activity",
             "activityTitle": "**Jenkins Melapor**",
             "activitySubtitle": "${currDate}",
+            "activityImage": "${image}",
             "facts": [
                 {
                     "name": "App",
